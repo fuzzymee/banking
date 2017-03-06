@@ -18,7 +18,7 @@ module SessionsHelper
 	  if admin?
 	    @current_accounts ||= Account.all.to_a
 	  else 
-      @current_accounts ||= Account.select{|x| x.owner == current_user.id.to_s }
+		@current_accounts ||= Account.select{|x| x.owner == current_user.id.to_s }
     end
 	end
 	

@@ -7,7 +7,11 @@
 		<b>
 			Account ID: <%= @account.acct_number %> <br>
 			<% if admin? %>
-				Owner: <%= link_to get_user(@account.owner).name, :controller => "users", :action => :show, :id => @account.owner %> <br>
+				<% if @account.owner == nil || User.where(id: @account.owner).empty? %>
+					Owner: The owner Account has been deleted. <br>
+				<% else %>
+					Owner: <%= link_to get_user(@account.owner).name, :controller => "users", :action => :show, :id => @account.owner %> <br>
+				<% end %>
 			<% end %>
 			Balance: $<%= sprintf("%.2f",@account.balance) %> <br>
 			Status: <%= @account.status.upcase %> <br><br></b>

@@ -49,6 +49,11 @@ class UsersController < ApplicationController
 		flash[:danger] = "Failed: Cannot delete Master Admin!"
 		redirect_to current_user
 	else
+		@user_accounts =  Account.select{|x| x.owner == params[:id]}
+		@user_accounts.each do |a|
+			a.update_attributes(status: "CLOSED")
+			a.update_attributes(owner: nil)
+		end
 		User.find(params[:id]).destroy
 		flash[:success] = "User Deleted"
 		redirect_to users_url
